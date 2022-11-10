@@ -447,13 +447,46 @@
     - 命令行里面用，linux系统dos都行
   - FILE 
     - FILE * fopen(const char* restrict path,const char *restrict mode);
-      - r
-      - w
-      - a
+      - r：打开，只读
+      - r+：打开，读写，从文件头开始
+      - w：打开，只写，不存在则新建，存在则清空
+      - w+：打开读写，不存在则信息，存在则清空
+      - a：打开追加。不存在则新建，存在则从文件尾部开始
+      - ..x：只是新建，如果存在则不能打开
       - 等等。用到的时候查吧。
     - int fclose(FILE *stream);
     - fscanf(FILE*,...);
     - fprintf(FILE*,...);
+  - 二进制文件
+    - 文本文件的输入输出是格式化的，可能经过转码。
+    - size_t fread(void *restrict ptr,size_t size,size_t nitems,FILE *restrict stream)
+    - size_t fwrite(const void *restrict ptr,size_t size,size_t nitems,FILE *restrict stream)
+    - 第一个参数：读写的那一块内存
+    - 第二个参数：一个结构的大小
+    - 第三个参数：有几个这样的结构
+    - 第四个参数：文件路径
+    - 在文件中定位
+      - long ftell(FILE *stream);  // 得到现在的位置
+      - int fseek(FILE *stream, long offset, int whence);
+        - SEEK_SET：从头开始
+        - SEEK_CUR：从当前位置开始
+        - SEEK_END：从尾开始（倒过来）
+    - 这样的二进制文件不具有可移植性
+      - 在int为32位的机器上无法在64位的机器上读出来
+    - 解决方案之一放弃使用int，而是typedef具有明确大小的类型
+    - 更好的方案用文本
+
+#### 位运算
+
+- 按位运算
+  - &  按位与
+  - |  按位或
+  - ~  按位取反
+  - ^  按位异或
+  - <<  按位左移
+  - \>\>  按位右移
+- 位段
+  - 可以声明比特。。
 
 
 
